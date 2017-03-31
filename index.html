@@ -1,0 +1,1072 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>Workshop Docker</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+	var link = document.createElement( 'link' );
+	link.rel = 'stylesheet';
+	link.type = 'text/css';
+	link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+	document.getElementsByTagName( 'head' )[0].appendChild( link );
+	</script>
+
+</head>
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section data-background-image="images/title-bg.png">
+				<h1>Workshop Docker</h1>
+			</section>
+
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					# Contenedores <br/> vs<br/> VirtualMachines
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## VirtualMachines
+					* Cada aplicacion en maquinas virtuales necesita contar con un sistema operativo completo virtualizado (ocupando por ejemplo 1GB de memoria RAM)
+					* Poseen su propia infraestructura para desagüe,electricidad,calefacción, etc.
+					<div>
+						<img src="images/house-vm.jpg" style="width: 500px;heigth:450px"/>
+					</div>
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## Contenedores
+					* El contenedor Linux permite probar aplicaciones o sistemas en un entorno seguro e igual al de producción,
+					* Ellos son construidos alrededor de una infraestructura compartida.
+					* Estos también vienen en distintos tamaños acorde a la necesidad,dentro del mismo edificio.
+					<div>
+						<img src="images/apartaments-container.jpg" style="width: 350px"/>
+					</div>
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## Ques es Docker
+					* Docker es un proyecto de código abierto con el que fácilmente podremos crear "contenedores". Estos contenedores de Docker podríamos definirlos
+					como máquinas virtuales ligeras.
+					* Docker aprovecha el kernel de la máquina real y con su motor tan solo carga en la memoria las librerías y dependencias necesarias para ejecutar la aplicación, despreciando todo lo demás y ocupando alrededor del un 80% menos
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## Diferentes Arquitecturas
+					<img src="images/architectures.png" style="width: 800px"/>
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## ¿Porque ocupar contenedores?
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					<img src="images/containers-reals.png" style=""/>
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					<img src="images/containers-docker.png" style=""/>
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## ¿Pueden coexistir?
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					<img src="images/vm_containers.png" style=""/>
+				</script>
+			</section>
+
+
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## Misión de Docker
+					<img src="images/mission.png" style="width: 800px"/>
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## Beneficios de Docker
+					* Separación de responsabilidades
+					* El desarrollador se preocupa de construir su applicación
+					* El Administrador del sistema se enfoca en desplegar la aplicación
+					* Acelerar el ciclo de desarrollo
+					* Portabilidad
+					* Escalabilidad
+					* Ejecutar más aplicaciones en una maquina
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## Características
+					* Portabilidad
+						- Todos los contenedores son portables, por lo que podemos llevarlos fácilmente a cualquier otro equipo con Docker sin tener que volver a configurar nada.
+					* Ligereza
+					  - Al no virtualizar un sistema completo, sino solo lo necesario, el consumo de recursos es mínimo lo que nos demuestra un significativo ahorro a la hora de almacenar diversos contenedores que podamos desplegar con posterioridad.
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## Características
+					* Autosuficiencia
+						- Docker se encarga de todo, por lo que los contenedores tan solo deben tener lo necesario para que la aplicación funcione, por ejemplo, aquellas librerías, archivos y configuraciones necesarias para poder realizar su función
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					# Docker:
+					## Conceptos y Términos
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Daemon
+					Proceso principal de la plataforma
+					### Client
+					Es el binario que constituye la interfaz y que permite al usuario interactuar con el Demonio
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Images
+					La base de un contenedor. Representa una aplicación completa
+					### Containers
+					La unidad estandar donde la aplicacion vive y se ejecuta
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Engine
+					Crea, transporta y ejecuta contenedores deployados en una maquina fisica, virtual o en la nube
+					### Registry
+					Servicio de almacenamiento y distribución basado en la nube o servidor para sus imágenes
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## Arquitectura
+					<img src="images/docker-architectura.png" style="width: 800px"/>
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					# Docker:
+					## Instalación
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Diferencias en Sistemas Operativos (Windows/Linux/OSX)
+					<img src="images/os.png" style="width: 800px"/>
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Instalacion Windows
+					* Docker Toolbox
+					* Docker for Windows: Hyper-V y Windows Containers <br/> ( Windows 10 Pro, Windows Server 2016 )
+
+					<img src="images/docker-tool.png" style="width: 300px"/>
+					<img src="images/dock-win.png" style="width: 300px"/>
+					<img src="images/win-cont.png" style="width: 300px"/>
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Instalacion Linux
+					```bash
+					# curl -sSL https://get.docker.com/ | sh
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Utilizando Docker sin sudo
+					```bash
+					# sudo usermod -aG docker $USER
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### ¿Donde esta el archivo de configuración de docker?
+					```bash
+					# cat /lib/systemd/system/docker.service
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### ¿Donde se almacenan los datos de Docker?
+					En sistemas linux usualmente en <br/> <b>/var/lib/docker/</b>
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Verificando la Instalación
+					```bash
+					$ docker run hello-world
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					# Imagenes
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Conceptos
+					 * Dockerfile
+					 	- Es un archivo que permite definir las imágenes.
+					 * Image
+					 	- Consiste en un conjunto de aplicaciones empaquetadas. En este paquete va todo: dependencias, configuración, puertos expuestos, etc. Sin embargo, éstos no son usables, ya que no están en ejecución.
+					 * Container
+					  - Es una instancia de una imagen en ejecucion. Es lo que usaremos
+
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Image Layers
+					* Las images se componen de múltiples layers
+					* Tanto las imágenes como los containers tienen un nombre consistente en una hash, algo como b02610296ec7.
+					<img src="images/layers.jpg" style="margin-left:100px;width: 500px"/>
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Image Layers
+					* Cada image contiene una layer base
+					<img src="images/layer-base.png" style="margin-left:100px;width: 500px"/>
+				</script>
+			</section>
+
+
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					# Construyendo imagenes
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Docker Commit
+					* <b>docker commit</b> guarda los cambios del contenedor como una nueva imagen
+					* Sintaxis:
+					```bash
+					$ docker commit [options] [container ID] [repository:tag]
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Image namespaces
+					* Root: para repositorios officiales
+					* Ejemplos:
+					```bash
+					ubuntu:14.04
+					centos:7
+					nginx
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Image namespaces
+					* Usuario u organizacion: para imagenes que se distribuyen en Docker Hub
+					* Ejemplos:
+					```bash
+					myuser/myapp
+					mycompany/myapp
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Image namespaces
+					* Self hosted: para imagenes que se distribuyen en tu propio registro
+					* Ejemplos:
+					```bash
+					registry.mycompany.com:5000/my-image
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## Dockerfile
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					* Un Dockerfile es una archivo de configuración que contiene las instrucciones para construir una imagen de Docker
+					* Provee una forma más efectiva para construir imagenes que usar <b>docker commit</b>
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					<img src="images/recetacocina-dockerfile.jpg" style="width:70%"/>
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## Instrucciones del Dockerfile
+					Especifican que hacer cuando se esta construyendo la imagen
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					* <b>FROM</b> especifica que imagen base sera usada
+					* <b>RUN</b> especifica que comando se ejecutara
+					```bash
+					#Example of a comment
+					FROM ubuntu:14.04
+					RUN apt-get install vim
+					RUN apt-get install curl
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## Docker Build
+					* Sintaxis:
+					```bash
+					docker build -t [repository:tag] [path]
+					```
+					* El build context:
+					* El build context es el directorio que el Docker client envia al Docker daemon durante el comando <b>docker build</b>
+					* Especificar <b>"."</b> para el build context significa el directorio actual
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					* El build cache:
+					* Docker guarda un snapshot de la imagen despues de cada build step
+					* Para deshabilitar el cache manualmente utilizamos el flag <b>--no-cache</b>
+					* Ejemplo build:
+					```bash
+					docker build -t myuser/myapp .
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Observando las layers de una imagen y su historia
+					<b>docker history</b> nos muestra los layers que tiene la imagen
+					```bash
+					docker history myuser/myapp
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					## CMD y ENTRYPOINT
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					* <b>CMD</b> define el comando por defecto a ejecutar cuando un contenedor es creado
+					* Puede ser especificado una vez en un Dockerfile, si se declara mas de una vez, solo el ultimo sera ejecutado
+					```bash
+					CMD ["ping", "127.0.0.1", "-c", "30"]
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					* <b>ENTRYPOINT</b> define el comando a ejecutar cuando un contenedor es creado
+					* Argumentos en tiempo de ejecucion y las instrucciones de <b>CMD</b> son pasadas como parametros al <b>ENTRYPOINT</b>
+					```bash
+					ENTRYPOINT ["ping"]
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Usando CMD con ENTRYPOINT
+					* Si <b>ENTRYPOINT</b> es usado, la instruccion <b>CMD</b> puede ser usada para especificar los parametros por defecto
+					```bash
+					CMD ["127.0.0.1", "-c", "30"]
+					ENTRYPOINT ["ping"]
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Instruccion COPY
+					* La instrucción <b>COPY</b> copia archivos o directorios desde una fuente especificada y los agrega al filesystem del contenedor en un destino especificado
+					```bash
+					COPY app /bin/app
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### instruccion ENV
+					* Usada para setear variables de entorno en un contenedor
+					```bash
+					ENV JAVA_HOME=/opt/java-1.8
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### instruccion ADD
+					* La instrucción <b>ADD</b> copia archivos o directorios desde una fuente especificada y los agrega al filesystem del contenedor en un destino especificado
+					```bash
+					ADD app /app
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### COPY vs ADD
+					* ADD puede auto-descomprir archivos tar
+					* ADD permite especificar una url para el contenido
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Buenas practicas para Dockerfiles
+					* No instales paquetes innecesarios
+					* Minimizar el numero de layers
+					* Ocupar argumentos multilinea
+				</script>
+			</section>
+
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					# Contenedores
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Ciclo de vida basico de un contenedor
+					<img src="images/ciclovida.png" style="width: 100%"/>
+				</script>
+			</section>
+
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+				## Create container
+					 docker create --name <container-name> <image-name>
+				## Run container
+					 docker run -it -d --name <container-name> <image-name> bash
+				## Pause container
+					 docker pause <container-id/name>
+				## Unpause container
+					 docker unpause <container-id/name>
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+				## Start container
+					 docker start <container-id/name>
+				## Stop container
+					 docker stop <container-id/name>
+				## Restart container
+					 docker restart <container-id/name>
+				## Destroy container
+					 docker rm <container-id/name>
+				</script>
+			</section>
+
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Viendo los eventos de Docker
+					* Utiliza el comando <b>docker events</b>
+					* El comando <b>docker events</b> para ver los eventos que ocurren en el demonio docker
+						```bash
+						$ docker events
+						```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Creando un contenedor desde una imagen
+					* Utiliza el comando <b>docker run</b>
+					* El comando <b>docker run</b> realiza 2 cosas:
+						* Crea un contenedor con la imagen especificada
+						* Ejecuta el contenedor
+						```bash
+						$ docker run alpine echo "Hello World"
+						Hello World
+						```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Buscar tus contenedores
+					* Utiliza el comando <b>docker ps</b> para listar los contenedores en ejecucion
+					* El flag <b>–a</b> lista todos los contenedores (incluidos los que estan detenidos)
+					```bash
+					$ docker ps
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Contenedor con una terminal
+					* Usa los flags -i y -t con docker run
+					* El flag -i le dice a docker que se conecte al STDIN del contenedor
+					* El flag -t especifica obtener una pseudo-terminal
+					```bash
+					$ docker run -i -t alpine ash
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Procesos en el contenedor
+					* El proceso principal es siempre el PID 1 dentro del contenedor
+
+					<img src="images/docker_container_processes.png" style="margin-left:100px;width: 500px"/>
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Ejecutando contenedores en Detached Mode
+					* También conocido como ejecución en background or demonio
+					* Utilizar el flag <b>-d</b>
+					* Para observar la salida utilizamos el comando <br/> <b>docker logs [container_id]</b>
+					```bash
+					$ docker run -d alpine ping 127.0.0.1
+					ca71e398900489034567deefa714bf5815da1e1a1a828b25f685ea62feff266a
+					$ docker logs ca7
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Comando Docker exec
+					* El comando <b>docker exec</b> nos permite ejecutar un proceso adicional dentro del contenedor
+					* Tipicamente es usado para obtener una linea de comandos
+					```bash
+					$ docker run -d alpine ping 127.0.0.1
+					ca71e398900489034567deefa714bf5815da1e1a1a828b25f685ea62feff266a
+					$ docker exec -i -t ca7 ash
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Inspeccionando los logs del contenedor
+					* La salida proceso PID 1 del contenedor puede ser vista con el comando <b>docker logs</b>
+					* Este mostrara todo lo que el PID 1 escriba en <b>stdout</b> y <b>stderr</b>
+					```bash
+					$ docker logs 1d7
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Inspeccionando un contenedor
+					* El comando <b>docker inspect</b> muestra todos los detalles de un contendor
+					* Para encontrar una propiedad en especifica, podemos:
+					 * Redirigiendo la salida del comando <b>docker inspect</b> con un pipe(<b>"|"</b>) y utilizar el comando <b>grep</b> para buscar
+					 * Usa la opcion <b>--format</b> del comando <b>docker inspect</b>
+					```bash
+					$ docker inspect --format='{{.NetworkSettings.IPAddress}}' 1y8
+					10.10.10.2
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Eliminando contenedores
+					* Solo puedes eliminar contenedores que han sido detenidos
+					* Utiliza el comando <b>docker rm</b>
+					* Para forzar la eliminacion de un contenedor en ejecución, se usa la opcion <b>-f</b>
+					```bash
+					$ docker rm 1q5
+					$ docker rm -f 16y
+					```
+				</script>
+			</section>
+
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					# Engine
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### ¿Que es el Docker Engine?
+					* Docker Engine es una aplicación cliente-servidor con 3 componentes mayores :
+					 * Un servidor que es un tipo de programa de larga ejecución llamado proceso demonio
+					 * Una API REST que se usa para comunicarse con el proceso-demonio y decirle qué hacer
+					 * Una interfaz cliente de linea de comando
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					<img src="images/engine-components-flow.png" style="margin-left:100px;width:800px"/>
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					* La CLI utiliza la API REST de Docker para controlar o interactuar con el demonio Docker a través de scripts o comandos de la CLI. Muchas otras aplicaciones de Docker utilizan la API y la CLI.
+					* El demonio crea y administra objetos de Docker, como imágenes, contenedores, redes y volúmenes.
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					# Registry
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### ¿Que es el Docker Registry?
+					  Almacena todas las imágenes de Docker en la nube o en tu red
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Distribuyendo tu imagen
+					* Push a Docker Hub
+					* Push a tu propio registry
+					* Con los comandos <b>docker save</b> y <b>docker load</b>
+				</script>
+			</section>
+
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Repositorios Docker Hub
+					* Publicos y Privados
+					* Los usuarios pueden crear sus propios repositorios en Docker Hub
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Push imagenes a Docker Hub
+					* Use <b>docker push</b> command.
+					* Sintaxis:
+					```bash
+					$ docker push [repo:tag]
+					```
+					* Debes inicar sesion en tu cuenta de Docker Hub
+					* Incia sesion con el comando <b>docker login </b>
+					```bash
+					$ docker login
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Tagging Images
+					* Usado para renombrar una imagen local del repositorio antes de hacer push a Docker Hub
+					* Sintaxis:
+					```bash
+					$ docker tag [image ID] [repo:tag]
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Eliminando imagenes locales
+					* Utiliza el comando <b>docker rmi</b>
+					* Sintaxis:
+					```bash
+					$ docker rmi [image ID]
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+						<img src="images/registry-ejemplo.png" style="margin-left:100px;width:800px"/>
+				</script>
+			</section>
+
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					# Volumes
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### ¿Que son los Volumes?
+					* Un volumen es un directorio dentro de un contenedor, que está diseñado para persistir datos, independientemente del ciclo de vida del contenedor
+					* Persiste cuando se elimina un contenedor
+					* Se puede asignar a una carpeta del host
+					* Se puede compartir entre contenedores
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Uso de los volumes
+					* Desacoplar los datos que se almacenan, del contenedor que creó los datos
+					* Compartir un directorio del host con un contenedor
+					* Compartir datos entre contenedores
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Creando un volumen
+					* Utilice el comando <b>docker volume create</b> y especifique la opción <b>--name</b>
+					* Especifique un nombre para que pueda encontrar e identificar fácilmente su volumen más adelante
+					* Sintaxis:
+					```bash
+					$ docker volume create --name myVol
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Listando volumenes
+					* Utilice el comando <b>docker volume ls</b> para mostrar todos los volúmenes
+					* Los volúmenes que no se les dio un nombre durante la creación tendrán un nombre generado al azar
+					* Sintaxis:
+					```bash
+					$ docker volume ls
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Montando un directorio host en un volumen
+					* Los volúmenes se pueden montar cuando se ejecuta un contenedor
+					* Utilice la opción <b>-v</b> en el comando <b>docker run</b>, especifique el nombre del volumen y donde montarlo
+					* Puede montar varios volúmenes utilizando la opción -v varias veces
+					* Sintaxis:
+					```bash
+					$ docker run -d -v ~/dev/myApp1:/www/myApp1 \
+					         -v ~/dev/myApp2:/www/myApp2 \
+							 nginx:alpine
+					```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### ¿Dónde están nuestros volumenes?
+					* Los volúmenes existen independientemente de los contenedores
+					* Si se detiene un contenedor, todavía podemos acceder a nuestro volumen
+					* Para saber donde esta nuestro volumen podemos ocupar el comando <b>docker volume inspect</b>, la propia <b>"Mountpoint"</b> nos dara la ruta
+					* Sintaxis:
+						```bash
+						$ docker volume inspect myVol
+						[
+						  {      ...
+						        "Mountpoint": "/var/lib/docker/volumes/myVol/_data",
+						        "Name": "myVol",
+						        ...
+						```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Eliminando un volumen
+					* Los volúmenes no se eliminan cuando elimina un contenedor
+					* Utilice el comando <b>docker volume rm</b> para eliminar un volumen
+					* Sintaxis:
+						```bash
+						$ docker volume rm myVol
+						```
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Volumenes en un Dockerfile
+					* No se pueden asignar volúmenes a los directorios de host
+					* Los volúmenes se inicializan cuando se ejecuta el contenedor
+					* Sintaxis:
+						```bash
+						VOLUME /myvol
+						VOLUME /www/website1.com /www/website2.com
+						```
+				</script>
+			</section>
+
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					# Networking
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					* Los contenedores no tienen una direccion IPv4 publica
+					* Los servicios que se ejecutan en un contenedor deben estar expuestos puerto por puerto
+					* Se les asigna una dirección privada
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### La interfaz docker0
+					* Cuando Docker se inicia, crea una interfaz virtual llamada docker0 en el host
+					* A la interfaz docker0 se le asigna una dirección IP aleatoria y subred del rango privado definido por RFC 1918
+					* La interfaz docker0 es una interfaz de puente Ethernet virtual
+					* Conmuta paquetes entre dos dispositivos conectados como un switch
+					* Cada nuevo contenedor se conecta automáticamente al interfaz docker0
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Propiedades de red de un contenedor
+					* Utilice el comando <b>docker inspect</b> y busque el campo <b>"NetworkSettings"</b>
+					```bash
+					$ docker inspect 4ad
+					...
+					"NetworkSettings": {
+            ...
+            "IPAddress": "172.17.0.2",
+            ...
+            "MacAddress": "02:42:ac:11:00:02",
+            "Networks": {
+                "bridge": {
+                    ...
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+					...
+					```
+
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Diagrama del modelo de red
+					<img src="images/network.jpg" style="margin-left:100px;width:800px"/>
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Redes por defecto
+					* Docker viene con tres redes configuradas automáticamente
+					* Para ver estas redes utilizamos el comando <b>docker network ls</b>
+
+					```bash
+					$ docker network ls
+					NETWORK ID          NAME                DRIVER              SCOPE
+e1b368859d6b        bridge              bridge              local
+4e62394dfa33        host                host                local
+ef4dc0f5acc8        none                null                local
+
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Redes por defecto
+					* La red bridge es la interfaz docker0
+					* Por defecto, todos los contenedores están conectados a la red bridge
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Exponiendo un contenedor en una red bridge
+					* Los contenedores que se ejecutan en una red bridge sólo pueden ser accedidos por el host en el que reside dicha red
+					* Para hacer un contenedor accesible para el exterior debemos exponer los puertos del contenedor y asignarlos a un puerto del host.
+					* El contenedor se puede acceder a través del puerto de host mapeado
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Mapeando Puertos
+					* El mapeo de puertos expone los puertos del contenedor a puertos del host
+					* Puertos pueden ser mapeados manual o automaticamente
+					* Puedes ver los puertos mapeados de cada contenedor en la salida del comando <b>docker ps</b>
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Mapeando Manual de Puertos
+					* Utiliza la opción <b>-p (p minuscula)</b> en el comando <b>docker run</b>
+					```bash
+						$ docker run -p [host port]:[container port] [image]
+					```
+					* Para asignar varios puertos, especifique la opción -p varias veces
+					```bash
+						$ docker run -d -p 80:80 -p 8080:80 nginx:alpine
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Comando docker port
+					* La salida <b>docker ps</b> no es muy ideal para mostrar las asignaciones de puertos
+					* Podemos utilizar el comando <b>docker port</b>
+					```bash
+						$ docker port 123
+						80/tcp -> 0.0.0.0:8080
+						80/tcp -> 0.0.0.0:80
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Mapeo Automatico de puertos
+					* Utilice la opcion <b>-P</b> en el comando <b>docker run</b>
+					* Automáticamente asigna los puertos expuestos en el contenedor a puertos en el host
+					* Los puerto del host usados van desde 49153 al 65535
+					* Sólo funciona para puertos definidos en la instrucción <b>EXPOSE</b> del Dockerfile
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Instruccion EXPOSE
+					* Configura los puertos que un contenedor escuchará en tiempo de ejecución.
+					* Los puertos necesitan ser mapeados cuando se ejecuta el contenedor
+					```bash
+						EXPOSE 80 443
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					# Docker-Machine
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					* Docker-Machine es una herramienta que automáticamente provisiona hosts e instala Docker en ellos
+						* Crear hosts adicionales en tu host
+						* Crear hosts en proveedores en la nube (por ejemplo AWS, DigitalOcean, Azure, etc ...)
+						* Crea el servidor, instala Docker y configura el cliente Docker
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					<img src="images/machine.png" style="margin-left:100px;width:800px"/>
+				</script>
+			</section>
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Instalando Docker-Machine
+					```bash
+					curl -L https://github.com/docker/machine/releases/download/v0.9.0-rc1/docker-machine-`uname -s`-`uname -m` > \
+					/usr/local/bin/docker-machine && \
+					chmod +x /usr/local/bin/docker-machine
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Verificando Instalacion
+					* Ejecuta el comando  <b>docker-machine -v</b> para mostrar la version
+					```bash
+						docker-machine -v
+						docker-machine version 0.9.0-rc1, build ed849a7
+					```
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Instalando Docker-Machine en Windows y OSX
+					* La mejor opcion es usar Docker Toolbox o Docker for Windows / Mac
+					* Todas las herramientas seran instaladas: Docker Machine, el cliente Docker como también Docker Compose
+					* Docker for Windows requiere Windows 10 pro edition 64 bit
+					* Docker for Mac requiere Yosemite 10.10.3 o superior
+				</script>
+			</section>
+
+			<section data-markdown data-background-image="images/slide-bg.png">
+				<script type="text/template">
+					### Usando Docker-Machine
+					* docker-machine binary tiene comandos para crear y manejar hosts Docker en una variedad de entornos como:
+					 * VirtualBox
+					 * AWS
+					 * DigitalOcean
+					 * Azure
+					 * y más...
+					* Cada entorno tiene su propio plugin
+				</script>
+			</section>
+
+
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+	// More info https://github.com/hakimel/reveal.js#configuration
+	Reveal.initialize({
+		controls: true,
+		progress: true,
+		history: true,
+		center: true,
+		slideNumber: true,
+
+		transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+		// More info https://github.com/hakimel/reveal.js#dependencies
+		dependencies: [
+			{ src: 'plugin/markdown/marked.js' },
+			{ src: 'plugin/markdown/markdown.js' },
+			{ src: 'plugin/notes/notes.js', async: true },
+			{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+		]
+	});
+	</script>
+</body>
+</html>
